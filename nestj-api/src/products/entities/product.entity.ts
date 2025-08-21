@@ -4,12 +4,16 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column() //varchar(255)
+
+  @Column()
   name: string;
+
   @Column({ type: 'text' })
   description: string;
+
   @Column()
   image_url: string;
-  @Column()
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 }

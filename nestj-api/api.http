@@ -1,12 +1,52 @@
-GET http://localhost:3000/products
+### LOGIN
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "john",
+  "password": "john"
+}
 
 ###
+
+@access_token = {{login.response.body.$.access_token}}
+
+### GET PRODUCTS
+GET http://localhost:3000/products
+Authorization: Bearer {{access_token}}
+
+### CREATE PRODUCT
 POST http://localhost:3000/products
 Content-Type: application/json
+Authorization: Bearer {{access_token}}
 
 {
   "name": "Product 1",
   "description": "Product 1 description",
   "image_url": "https://via.placeholder.com/150",
   "price": 100
+}
+
+### GET ORDERS
+GET http://localhost:3000/orders
+Authorization: Bearer {{access_token}}
+
+### CREATE ORDER
+POST http://localhost:3000/orders
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "items": [
+    {
+      "product_id": "04c4353a-3f6d-4272-a8f2-44b82c05ecc0",
+      "quantity": 1
+    },
+    {
+      "product_id": "0afa7630-4fc1-4d69-beed-4f8f15becadc",
+      "quantity": 1
+    }
+  ],
+  "card_hash": "123"
 }

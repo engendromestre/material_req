@@ -28,12 +28,14 @@ export class Order {
   id: string;
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   total: number;
+  @Column()
   client_id: number; // usuário autenticado
   @Column()
   status: OrderStatus = OrderStatus.PENDING;
   @CreateDateColumn()
   created_at: Date = new Date();
-  @OneToMany(() => OrderItem, (item) => item.order)
+  //insert, update ou delete
+  @OneToMany(() => OrderItem, (item) => item.order, { cascade: ['insert'] })
   items: OrderItem[];
 
   //Trabalhar de forma mais anêmica ou rica
